@@ -26,7 +26,7 @@ class ProductController extends AbstractController
 
             $jsonPersister->save($product);
 
-            $this->addFlash('success', 'Product added successfully to both database and JSON file.');
+            $this->addFlash('success', 'Product added successfully!');
 
             return $this->redirectToRoute('product_new');
         }

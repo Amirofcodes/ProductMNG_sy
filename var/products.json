@@ -10,5 +10,23 @@
         "designation": "TEST2",
         "univers": "titi",
         "price": 30
+    },
+    {
+        "id": 3,
+        "designation": "PS5",
+        "univers": "consoles",
+        "price": 500
+    },
+    {
+        "id": 5,
+        "designation": "clem",
+        "univers": "clem",
+        "price": 2
+    },
+    {
+        "id": 7,
+        "designation": "piere",
+        "univers": "p\u00eeere",
+        "price": 1000
     }
 ]
