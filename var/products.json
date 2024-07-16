@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "designation": "test111",
+        "univers": "toto",
+        "price": 10
+    },
+    {
+        "id": 2,
+        "designation": "TEST2",
+        "univers": "titi",
+        "price": 30
+    }
+]
