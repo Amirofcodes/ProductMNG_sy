@@ -1,12 +1,18 @@
 # ProductMNG_sy
 First Symfony project
+
 # Système de Gestion de Produits
 
-Ce projet est un Système de Gestion de Produits construit avec Symfony 6. Il permet aux utilisateurs d'ajouter de nouveaux produits, qui sont ensuite sauvegardés à la fois dans une base de données MySQL et dans un fichier JSON.
+Ce projet est un Système de Gestion de Produits construit avec Symfony 6. Il permet aux utilisateurs authentifiés d'ajouter de nouveaux produits et de visualiser une liste de tous les produits.
+
+## Fonctionnalités
+
+- Authentification utilisateur (inscription, connexion, déconnexion)
+- Ajout de nouveaux produits
+- Liste de tous les produits
+- Persistance des données dans une base de données MySQL et un fichier JSON
 
 ## Structure du Projet
-
-Le projet suit la structure de répertoire standard de Symfony :
 
 ```
 productMng/
@@ -14,95 +20,83 @@ productMng/
 ├── public/
 ├── src/
 │   ├── Controller/
-│   │   └── ProductController.php
+│   │   ├── ProductController.php
+│   │   ├── RegistrationController.php
+│   │   └── SecurityController.php
 │   ├── Entity/
-│   │   └── Product.php
+│   │   ├── Product.php
+│   │   └── User.php
 │   ├── Form/
-│   │   └── ProductType.php
+│   │   ├── ProductType.php
+│   │   └── RegistrationFormType.php
+│   ├── Repository/
+│   │   ├── ProductRepository.php
+│   │   └── UserRepository.php
+│   ├── Security/
+│   │   └── AppCustomAuthenticator.php
 │   └── Service/
 │       └── JsonProductPersister.php
 ├── templates/
-│   └── product/
-│       └── new.html.twig
+│   ├── product/
+│   │   ├── index.html.twig
+│   │   └── new.html.twig
+│   ├── registration/
+│   │   └── register.html.twig
+│   ├── security/
+│   │   └── login.html.twig
+│   ├── base.html.twig
+│   └── partials/
+│       └── _navbar.html.twig
 └── var/
     └── products.json
 ```
 
 ## Composants Clés
 
-1. **Entité** : `Product.php`
-   - Représente un produit avec les propriétés : id, designation, univers et prix.
-   - Utilise les annotations Doctrine ORM pour le mapping de la base de données.
+1. **Entités** : 
+   - `Product.php` : Représente un produit avec ses propriétés.
+   - `User.php` : Représente un utilisateur du système.
 
-2. **Formulaire** : `ProductType.php`
-   - Définit la structure du formulaire pour ajouter un nouveau produit.
+2. **Contrôleurs** :
+   - `ProductController.php` : Gère l'ajout et la liste des produits.
+   - `RegistrationController.php` : Gère l'inscription des utilisateurs.
+   - `SecurityController.php` : Gère la connexion et la déconnexion.
 
-3. **Contrôleur** : `ProductController.php`
-   - Gère la logique d'affichage du formulaire et de traitement des soumissions.
+3. **Formulaires** :
+   - `ProductType.php` : Formulaire pour ajouter/éditer un produit.
+   - `RegistrationFormType.php` : Formulaire d'inscription.
 
-4. **Service** : `JsonProductPersister.php`
-   - Service personnalisé pour sauvegarder les données du produit dans un fichier JSON.
+4. **Services** :
+   - `JsonProductPersister.php` : Sauvegarde les produits dans un fichier JSON.
 
-5. **Template** : `new.html.twig`
-   - Template Twig pour le rendu du formulaire "Ajouter un Nouveau Produit".
+5. **Sécurité** :
+   - `AppCustomAuthenticator.php` : Gère le processus d'authentification.
+
+6. **Templates** :
+   - Templates Twig pour le rendu des pages produits, connexion, et inscription.
 
 ## Fonctionnement
 
-1. Lorsqu'un utilisateur navigue vers `/product/new`, la méthode `ProductController::new()` est appelée.
-2. Cette méthode crée un nouvel objet `Product` et un formulaire basé sur `ProductType`.
-3. Le formulaire est rendu en utilisant le template `new.html.twig`.
-4. Lorsque le formulaire est soumis et valide :
-   - Le produit est persisté dans la base de données en utilisant Doctrine ORM.
-   - Le produit est également sauvegardé dans un fichier JSON en utilisant `JsonProductPersister`.
-   - Un message flash de succès est affiché.
-   - L'utilisateur est redirigé vers le formulaire.
-
-## Améliorations du Frontend
-
-Le formulaire "Ajouter un Nouveau Produit" a été amélioré avec les caractéristiques suivantes :
-
-- Design épuré et moderne utilisant CSS personnalisé.
-- Champs de formulaire bien structurés avec des étiquettes claires.
-- Bouton "Ajouter un Produit" en bleu clair, conforme au design du projet PHP de base.
-- Messages de succès stylisés pour une meilleure expérience utilisateur.
-
-Ces améliorations sont implémentées directement dans le template Twig `new.html.twig` en utilisant des styles CSS intégrés.
+1. Les utilisateurs doivent s'inscrire et se connecter pour accéder au système.
+2. Une fois connectés, ils sont redirigés vers la liste des produits.
+3. Les utilisateurs peuvent ajouter de nouveaux produits via le formulaire d'ajout.
+4. Les produits sont sauvegardés dans la base de données MySQL et dans un fichier JSON.
 
 ## Configuration et Exécution du Projet
 
 1. Clonez le dépôt.
-2. Installez les dépendances :
-   ```
-   composer install
-   ```
+2. Installez les dépendances : `composer install`
 3. Configurez votre base de données dans le fichier `.env`.
-4. Créez la base de données :
-   ```
-   php bin/console doctrine:database:create
-   ```
-5. Créez le schéma :
-   ```
-   php bin/console doctrine:schema:update --force
-   ```
-6. Démarrez le serveur PHP intégré :
-   ```
-   php -S localhost:8000 -t public
-   ```
-7. Naviguez vers `http://localhost:8000/product/new` dans votre navigateur web.
-
-## Fichiers Clés et Leurs Objectifs
-
-- `src/Entity/Product.php` : Définit l'entité Product et ses propriétés.
-- `src/Form/ProductType.php` : Définit le formulaire pour ajouter un nouveau produit.
-- `src/Controller/ProductController.php` : Gère la logique d'affichage et de traitement du formulaire.
-- `src/Service/JsonProductPersister.php` : Gère la sauvegarde des données du produit dans un fichier JSON.
-- `templates/product/new.html.twig` : Le template pour la page "Ajouter un Nouveau Produit", incluant les styles CSS.
-- `config/services.yaml` : Configure les services, y compris `JsonProductPersister`.
+4. Créez la base de données : `php bin/console doctrine:database:create`
+5. Appliquez les migrations : `php bin/console doctrine:migrations:migrate`
+6. Démarrez le serveur : `php -S localhost:8000 -t public`
+7. Accédez à `http://localhost:8000` dans votre navigateur.
 
 ## Améliorations Futures
 
-- Ajouter une page de listing pour voir tous les produits.
-- Implémenter les fonctionnalités de modification et de suppression.
-- Ajouter une validation à l'entité Product.
-- Améliorer la gestion des erreurs et le retour d'information à l'utilisateur.
+- Implémentation de la modification et de la suppression des produits.
+- Ajout de pagination à la liste des produits.
+- Amélioration de la validation des données.
+- Ajout de tests unitaires et fonctionnels.
+- Implémentation d'un système de recherche de produits.
 ```
