@@ -4,6 +4,8 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'connect_github_start' => [[], ['_controller' => 'App\\Controller\\GitHubController::connectAction'], [], [['text', '/connect/github']], [], [], []],
+    'connect_github_check' => [[], ['_controller' => 'App\\Controller\\GitHubController::connectCheckAction'], [], [['text', '/connect/github/check']], [], [], []],
     'product_index' => [[], ['_controller' => 'App\\Controller\\ProductController::index'], [], [['text', '/product/']], [], [], []],
     'product_new' => [[], ['_controller' => 'App\\Controller\\ProductController::new'], [], [['text', '/product/new']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
