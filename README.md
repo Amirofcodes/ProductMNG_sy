@@ -1,9 +1,8 @@
 # ProductMNG_sy
 First Symfony project
-
 # Système de Gestion de Produits
 
-Ce projet est un simple Système de Gestion de Produits construit avec Symfony 6. Il permet aux utilisateurs d'ajouter de nouveaux produits, qui sont ensuite sauvegardés à la fois dans une base de données MySQL et dans un fichier JSON.
+Ce projet est un Système de Gestion de Produits construit avec Symfony 6. Il permet aux utilisateurs d'ajouter de nouveaux produits, qui sont ensuite sauvegardés à la fois dans une base de données MySQL et dans un fichier JSON.
 
 ## Structure du Projet
 
@@ -55,8 +54,19 @@ productMng/
 4. Lorsque le formulaire est soumis et valide :
    - Le produit est persisté dans la base de données en utilisant Doctrine ORM.
    - Le produit est également sauvegardé dans un fichier JSON en utilisant `JsonProductPersister`.
-   - Un message flash de succès est défini.
+   - Un message flash de succès est affiché.
    - L'utilisateur est redirigé vers le formulaire.
+
+## Améliorations du Frontend
+
+Le formulaire "Ajouter un Nouveau Produit" a été amélioré avec les caractéristiques suivantes :
+
+- Design épuré et moderne utilisant CSS personnalisé.
+- Champs de formulaire bien structurés avec des étiquettes claires.
+- Bouton "Ajouter un Produit" en bleu clair, conforme au design du projet PHP de base.
+- Messages de succès stylisés pour une meilleure expérience utilisateur.
+
+Ces améliorations sont implémentées directement dans le template Twig `new.html.twig` en utilisant des styles CSS intégrés.
 
 ## Configuration et Exécution du Projet
 
@@ -86,7 +96,7 @@ productMng/
 - `src/Form/ProductType.php` : Définit le formulaire pour ajouter un nouveau produit.
 - `src/Controller/ProductController.php` : Gère la logique d'affichage et de traitement du formulaire.
 - `src/Service/JsonProductPersister.php` : Gère la sauvegarde des données du produit dans un fichier JSON.
-- `templates/product/new.html.twig` : Le template pour la page "Ajouter un Nouveau Produit".
+- `templates/product/new.html.twig` : Le template pour la page "Ajouter un Nouveau Produit", incluant les styles CSS.
 - `config/services.yaml` : Configure les services, y compris `JsonProductPersister`.
 
 ## Améliorations Futures
@@ -95,5 +105,4 @@ productMng/
 - Implémenter les fonctionnalités de modification et de suppression.
 - Ajouter une validation à l'entité Product.
 - Améliorer la gestion des erreurs et le retour d'information à l'utilisateur.
-
 ```
